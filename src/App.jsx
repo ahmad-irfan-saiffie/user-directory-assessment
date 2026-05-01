@@ -28,7 +28,7 @@ function App() {
     /* <main>: For browsers and screen readers that this is the 
        primary content for the page.  */
 
-    <main className={`min-h-screen transition-colors duration-500 py-16 px-6 font-sans ${
+    <main className={`relative min-h-screen overflow-hidden transition-colors duration-500 py-16 px-6 font-sans ${
       darkMode ? 'bg-slate-950 text-white' : 'bg-gray-50 text-slate-900'
     }`}> 
     {/* 
@@ -43,7 +43,25 @@ function App() {
         - transition-colors duration-500: smooth transition when switching between light and dark mode for better user experience
     */}
 
-      <div className="max-w-6xl mx-auto">
+    {/* Moving Live Wallpaper Blobs */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Blob 1: Top Left - Bigger (w-[800px]) and Brighter (opacity-60) */}
+        <div className={`absolute -top-[15%] -left-[15%] w-[800px] h-[800px] rounded-full blur-[100px] animate-drift ${
+    darkMode 
+      ? 'bg-blue-500/30' // Brighter blue in dark mode
+      : 'bg-blue-400/50' // Stronger blue in light mode
+  }`}></div>
+
+        {/* Blob 2: Bottom Right - Bigger (w-[900px]) and Brighter (opacity-50) */}
+        <div className={`absolute -bottom-[15%] -right-[15%] w-[900px] h-[900px] rounded-full blur-[100px] animate-drift-slow ${
+    darkMode 
+      ? 'bg-purple-500/30' // Brighter purple in dark mode
+      : 'bg-purple-400/50' // Stronger purple in light mode
+  }`}></div>
+      </div>
+
+      {/* Setting up dark mode */}
+      <div className="max-w-6xl mx-auto relative z-10">
       {/* 
         - max-w-6xl: for easier to read, limit the content to 6xl (96rem) so it doesn't go too wide on large screens
         - mx-auto: center the content horizontally by setting left and right margins to auto 
