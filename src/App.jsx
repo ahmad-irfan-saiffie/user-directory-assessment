@@ -7,7 +7,7 @@ function App() {
   // but with "memory" that remember values even after re-renders of the page.
   const [users, setUsers] = useState([]);      // will save and use from the API data.
   const [search, setSearch] = useState("");    // will save and use what the user types.
-  const [darkMode, setDarkMode] = useState(false); // Memory for the theme toggle.
+  const [darkMode, setDarkMode] = useState(false); // A simple true/false switch for the visual theme.
 
 
   /* fetch: fetching data from remote server */
@@ -28,7 +28,9 @@ function App() {
     /* <main>: For browsers and screen readers that this is the 
        primary content for the page.  */
 
-    <main className="min-h-screen py-16 px-6 font-sans bg-gray-50 text-slate-900"> 
+    <main className={`min-h-screen transition-colors duration-500 py-16 px-6 font-sans ${
+      darkMode ? 'bg-slate-950 text-white' : 'bg-gray-50 text-slate-900'
+    }`}> 
     {/* 
         - min-h-screen: Make sure whole background fits whole screen
         - py-16: vertical padding for space
@@ -36,6 +38,9 @@ function App() {
         - font-sans: using sans-serif font for a modern and clean look  
         - bg-gray-50: Soft light theme for easier to read
         - text-slate-900: dark text color for better contrast and readability
+        - bg-slate-950: dark background for dark mode for better contrast and readability
+        - text-white: light text color for dark mode for better contrast and readability
+        - transition-colors duration-500: smooth transition when switching between light and dark mode for better user experience
     */}
 
       <div className="max-w-6xl mx-auto">
@@ -43,6 +48,21 @@ function App() {
         - max-w-6xl: for easier to read, limit the content to 6xl (96rem) so it doesn't go too wide on large screens
         - mx-auto: center the content horizontally by setting left and right margins to auto 
       */}
+
+        {/*}- flex justify-end: Pushes the button to the right side of the stage */}
+        <div className="flex justify-end mb-8">
+          <button 
+            onClick={() => setDarkMode(!darkMode)}
+            className={`p-3 rounded-xl transition-all duration-300 border flex items-center gap-2 font-bold ${
+              darkMode 
+                ? 'bg-slate-800 border-slate-700 text-yellow-400 hover:bg-slate-700' 
+                : 'bg-white border-slate-200 text-slate-600 hover:bg-gray-50 shadow-sm'
+            }`}
+          >
+            {/* UPDATED: Clear labels to see the button better */}
+            {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+          </button>
+        </div>
         
         <header className="text-center mb-16 space-y-4">
         {/*  
@@ -50,7 +70,9 @@ function App() {
             - text-center: center the text in the header
         */}
 
-          <h1 className="text-5xl font-black tracking-tight text-slate-900">
+          <h1 className={`text-5xl font-black tracking-tight transition-colors ${
+            darkMode ? 'text-white' : 'text-slate-900'
+          }`}>
           {/* 
             - tracking-tight: reduce letter spacing for more compact look
           */}
@@ -60,7 +82,9 @@ function App() {
               - text-blue-500: make "Directory" in blue color to add visual interest and highlight the purpose of the app
             */}
           </h1>
-          <p className="text-lg max-w-lg mx-auto text-slate-500">
+          <p className={`text-lg max-w-lg mx-auto transition-colors ${
+            darkMode ? 'text-slate-400' : 'text-slate-500'
+          }`}>
           {/*
             - text-lg: larger font size for the description
             - max-w-lg: limit the width of the description for better readability
@@ -94,7 +118,11 @@ function App() {
             <input 
             type="text" //textbox for user to type in
             placeholder="Search by name..." //default text to guide user on what to type
-            className="relative w-full p-5 rounded-2xl border border-slate-200 outline-none transition-all shadow-xl bg-white text-slate-700 focus:ring-blue-500"
+            className={`relative w-full p-5 rounded-2xl border outline-none transition-all shadow-xl ${
+              darkMode 
+                ? 'bg-slate-900 border-slate-700 text-white focus:ring-blue-400 placeholder:text-slate-600' 
+                : 'bg-white border-slate-200 text-slate-700 focus:ring-blue-500'
+            }`}
             /*
               - relative: to place this input above the glow effect
               - w-full: make the input take the full width of the container
@@ -130,7 +158,12 @@ function App() {
             /* changed <article> to <div> for easier styling */
             <div 
               key={user.id}
-              className="p-8 rounded-3xl border border-slate-100 bg-white transition-all duration-300 group relative overflow-hidden shadow-sm hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-400/50"
+              className={`p-8 rounded-3xl border transition-all duration-300 group relative overflow-hidden shadow-sm hover:-translate-y-2 
+              hover:shadow-2xl 
+              ${darkMode 
+                ? 'bg-slate-900 border-slate-800 hover:border-blue-500/50 hover:shadow-[0_20px_50px_rgba(59,130,246,0.15)]' 
+                : 'bg-white border-slate-100 hover:shadow-gray-400/50' 
+              }`}
             >
               {/*
                 - key={user.id}: unique key for each user card for React's rendering optimization
@@ -141,6 +174,7 @@ function App() {
                 - shadow-sm: subtle shadow for depth and separation from the background
                 - hover:-translate-y-2: lift the card slightly on hover for an interactive feel
                 - hover:shadow-2xl hover:shadow-gray-400/50: add a larger, softer shadow on hover for emphasis and a more dynamic look
+                - darkMode styles: adjust background, border, and shadow colors for better aesthetics in dark mode
               */}
               
               {/* User Status - Online/Offline */}
@@ -150,7 +184,9 @@ function App() {
                   - rounded-full: make it a circle
                   - bg-emerald-500 animate-pulse: green color with pulsing animation for online users to draw attention
                   - bg-slate-300: gray color for offline users to indicate inactivity */}
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${
+                    darkMode ? 'text-slate-500' : 'text-slate-400'
+                  }`}>
                   {isOnline ? 'User Active' : 'Offline'}
                 </span>
               </div>
@@ -172,27 +208,33 @@ function App() {
               </div>
 
               {/* The main identity information for the person. */}
-              <h2 className="text-2xl font-bold mb-1 text-slate-800 group-hover:text-blue-500 transition-colors">
+              <h2 className={`text-2xl font-bold mb-1 group-hover:text-blue-500 transition-colors ${
+                  darkMode ? 'text-white' : 'text-slate-800'
+                }`}>
                 {/*
                   - group-hover:text-blue-500: change text color to blue on hover for interactivity
                   - transition-colors: smooth transition for the color change when hovering over the card
                 */}
                 {user.name}
               </h2>
-              <p className="font-medium mb-6 text-slate-500">
+              <p className={`font-medium mb-6 ${
+                  darkMode ? 'text-slate-400' : 'text-slate-500'
+                }`}>
                 {user.email.toLowerCase()}
               </p>
               
               {/* <footer>: extra info provided including the company name and city address  */}
               {/* <footer> changed to <div> for easier styling */}
-              <div className="pt-6 border-t border-slate-100 space-y-3">
+              <div className={`pt-6 border-t space-y-3 ${
+                  darkMode ? 'border-slate-800' : 'border-slate-100'
+                }`}>
                 <div className="flex items-center group/item">
                   <span className="text-lg mr-3 opacity-70 group-hover/item:scale-125 transition-transform">🏢</span>
-                  <span className="text-sm font-semibold text-slate-600">{user.company.name}</span>
+                  <span className={`text-sm font-semibold ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>{user.company.name}</span>
                 </div>
                 <div className="flex items-center group/item">
                   <span className="text-lg mr-3 opacity-70 group-hover/item:scale-125 transition-transform">📍</span>
-                  <span className="text-sm font-semibold text-slate-600">{user.address.city}</span>
+                  <span className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>{user.address.city}</span>
                 </div>
               </div>
 
@@ -206,8 +248,8 @@ function App() {
         {filtered.length === 0 && (
           <div className="text-center py-32">
             <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-bold text-slate-800">No results found</h3>
-            <p className="text-slate-500">Try searching for a different user.</p>
+            <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-800'}`}>No results found</h3>
+            <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>Try searching for a different user.</p>
           </div>
         )}
       </div>
