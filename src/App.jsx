@@ -78,14 +78,53 @@ function App() {
         
 
         {/* Section for the search bar */}
-        <section>
-          <input 
+        <section className="search-area">
+        {/*
+          - <section>: to separate the search bar as a separate object on the page
+          - search-area: custom class for future potential of additional styling
+        */}
+
+          <div className="max-w-xl mx-auto mb-16 relative group">
+          {/*
+            - max-w-xl: limit the width of the search bar
+            - mx-auto: center the search bar horizontally
+            - mb-16: margin bottom for space between the search bar and the list below
+            - relative: to position the glow effect in this container
+            - group: activating hover effects on when hovering at the search area
+          */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-500"></div>
+            {/* 
+              - absolute: fixed into place this div under the same parent (the search area)
+              - -inset-1: make it a bit larger than input space to give that glowing outside effect
+              - bg-gradient-to-r from-blue-600 to-cyan-500: create a horizontal gradient from blue to cyan for the glow
+              - rounded-2xl: make the corners of the glow rounded to match the input
+              - blur: apply a blur effect to create a soft glow
+              - opacity-20: make the glow faint by default
+              - group-hover:opacity-50: increase the opacity of the glow when hovering over the search area for an interactive effect
+              - transition duration-500: smooth transition for the glow effect when it changes opacity
+            */}
+            <input 
             type="text" //textbox for user to type in
             placeholder="Search by name..." //default text to guide user on what to type
+            className="relative w-full p-5 rounded-2xl border border-slate-200 outline-none transition-all shadow-xl bg-white text-slate-700 focus:ring-blue-500"
+            /*
+              - relative: to place this input above the glow effect
+              - w-full: make the input take the full width of the container
+              - p-5: padding for space inside the input
+              - rounded-2xl: rounded corners for a modern look
+              - border border-slate-200: light border for definition without being too harsh
+              - outline-none: remove default focus outline for a cleaner look
+              - transition-all: smooth transition for all properties when they change (like focus effects)
+              - shadow-xl: add a large shadow for depth and emphasis on the search bar
+              - bg-white: white background for contrast against the glow and to keep it clean
+              - text-slate-700: dark text color for readability while still softer than pure black
+              - focus:ring-blue-500: add a blue ring around the input when it's focused for better accessibility and visual feedback
+            */ 
             // Link the typed value back to "search" state.
             onChange={(e) => setSearch(e.target.value)} //find exactly what user types 
-            //save it to "search" variable to filteri in the list
-          />
+            //save it to "search" variable to filter in the list
+            />
+            </div>
         </section>
 
 
