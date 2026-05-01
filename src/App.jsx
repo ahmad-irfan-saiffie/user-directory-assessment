@@ -122,8 +122,11 @@ function App() {
         */}
 
           {/* Take every user in the filtered list and present them. */}
-          {filtered.map(user => (
-            
+          {filtered.map(user => {
+            // Even IDs are online, Odd IDs are offline.
+            const isOnline = user.id % 2 === 0;
+
+            return (
             /* changed <article> to <div> for easier styling */
             <div 
               key={user.id}
@@ -139,6 +142,18 @@ function App() {
                 - hover:-translate-y-2: lift the card slightly on hover for an interactive feel
                 - hover:shadow-2xl hover:shadow-gray-400/50: add a larger, softer shadow on hover for emphasis and a more dynamic look
               */}
+              
+              {/* User Status - Online/Offline */}
+              <div className="flex items-center gap-2 mb-6">
+                <span className={`w-2.5 h-2.5 rounded-full ${isOnline ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`}></span>
+                  {/* - w-2.5 h-2.5: small size for the status indicator
+                  - rounded-full: make it a circle
+                  - bg-emerald-500 animate-pulse: green color with pulsing animation for online users to draw attention
+                  - bg-slate-300: gray color for offline users to indicate inactivity */}
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                  {isOnline ? 'User Active' : 'Offline'}
+                </span>
+              </div>
 
               {/* filtering the user id */}
 
@@ -182,7 +197,8 @@ function App() {
               </div>
 
             </div>
-          ))}
+            )
+})}
         </section>
 
 
