@@ -48,16 +48,11 @@ function App() {
         {/*  
             <header>: for the header of the page
             - text-center: center the text in the header
-            - mb-16: margin bottom for space between header and content (below the header)
-            - space-y-4: vertical spacing between elements in the header (title and description)  
         */}
 
           <h1 className="text-5xl font-black tracking-tight text-slate-900">
           {/* 
-            - text-5xl: large font size for the title
-            - font-black: extra bold for focus on title
             - tracking-tight: reduce letter spacing for more compact look
-            - text-slate-900: dark text color for better contrast and readability
           */}
             User<span className="text-blue-500">Directory</span>
             {/*
@@ -88,20 +83,13 @@ function App() {
           {/*
             - max-w-xl: limit the width of the search bar
             - mx-auto: center the search bar horizontally
-            - mb-16: margin bottom for space between the search bar and the list below
             - relative: to position the glow effect in this container
             - group: activating hover effects on when hovering at the search area
           */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-50 transition duration-500"></div>
             {/* 
               - absolute: fixed into place this div under the same parent (the search area)
-              - -inset-1: make it a bit larger than input space to give that glowing outside effect
-              - bg-gradient-to-r from-blue-600 to-cyan-500: create a horizontal gradient from blue to cyan for the glow
-              - rounded-2xl: make the corners of the glow rounded to match the input
-              - blur: apply a blur effect to create a soft glow
-              - opacity-20: make the glow faint by default
-              - group-hover:opacity-50: increase the opacity of the glow when hovering over the search area for an interactive effect
-              - transition duration-500: smooth transition for the glow effect when it changes opacity
+              - inset-1: make it a bit larger than input space to give that glowing outside effect
             */}
             <input 
             type="text" //textbox for user to type in
@@ -110,14 +98,8 @@ function App() {
             /*
               - relative: to place this input above the glow effect
               - w-full: make the input take the full width of the container
-              - p-5: padding for space inside the input
-              - rounded-2xl: rounded corners for a modern look
-              - border border-slate-200: light border for definition without being too harsh
               - outline-none: remove default focus outline for a cleaner look
               - transition-all: smooth transition for all properties when they change (like focus effects)
-              - shadow-xl: add a large shadow for depth and emphasis on the search bar
-              - bg-white: white background for contrast against the glow and to keep it clean
-              - text-slate-700: dark text color for readability while still softer than pure black
               - focus:ring-blue-500: add a blue ring around the input when it's focused for better accessibility and visual feedback
             */ 
             // Link the typed value back to "search" state.
@@ -129,35 +111,77 @@ function App() {
 
 
         {/* List container: List to present all user in respective card container  */}
-        <section>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/*
+          - <section>: to separate the user list as separate section 
+          - grid: use CSS grid layout for the user cards
+          - grid-cols-1: 1 column on small screens for better readability
+          - md:grid-cols-2: 2 columns on medium screens for better use of space
+          - lg:grid-cols-3: 3 columns on large screens for optimal use of space and presentation
+          - gap-8: space between the grid items (user cards) for better visual separation
+        */}
+
           {/* Take every user in the filtered list and present them. */}
           {filtered.map(user => (
             
-            /* <article>: to present piece of content in self-contained container (like profile card) */
-            <article key={user.id}> 
+            /* changed <article> to <div> for easier styling */
+            <div 
+              key={user.id}
+              className="p-8 rounded-3xl border border-slate-100 bg-white transition-all duration-300 group relative overflow-hidden shadow-sm hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-400/50"
+            >
+              {/*
+                - key={user.id}: unique key for each user card for React's rendering optimization
+                - transition-all duration-300: smooth transition for all properties when they change (like hover effects)
+                - group: to enable hover effects on child elements when hovering over the card
+                - relative: to position any child elements absolutely within the card if needed
+                - overflow-hidden: to ensure any child elements that might expand on hover don't overflow outside the card
+                - shadow-sm: subtle shadow for depth and separation from the background
+                - hover:-translate-y-2: lift the card slightly on hover for an interactive feel
+                - hover:shadow-2xl hover:shadow-gray-400/50: add a larger, softer shadow on hover for emphasis and a more dynamic look
+              */}
+
               {/* filtering the user id */}
 
               {/* Represents the User Avatar
                   also easier to find for the first letter of the name */}
-              <div>{user.name.charAt(0)}</div>
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-2xl flex items-center justify-center text-xl font-black mb-6 shadow-lg group-hover:rotate-6 transition-transform">
+                {/*
+                  - w-14 h-14: fixed size for the avatar for consistency
+                  - bg-gradient-to-br from-blue-600 to-blue-700: gradient background for a vibrant and modern look
+                  - flex items-center justify-center: center the text (initial) both vertically and horizontally within the avatar
+                  - shadow-lg: add a shadow for depth and emphasis on the avatar
+                  - group-hover:rotate-6: add a slight rotation on hover for an interactive and playful effect
+                  - transition-transform: smooth transition for the rotation effect when hovering over the card
+                */}
+                {user.name.charAt(0)}
+              </div>
 
               {/* The main identity information for the person. */}
-              <h2>{user.name}</h2>
-              <p>{user.email}</p>
+              <h2 className="text-2xl font-bold mb-1 text-slate-800 group-hover:text-blue-500 transition-colors">
+                {/*
+                  - group-hover:text-blue-500: change text color to blue on hover for interactivity
+                  - transition-colors: smooth transition for the color change when hovering over the card
+                */}
+                {user.name}
+              </h2>
+              <p className="font-medium mb-6 text-slate-500">
+                {user.email.toLowerCase()}
+              </p>
               
               {/* <footer>: extra info provided including the company name and city address  */}
-              <footer>
-                <div>
-                  <span>🏢</span>
-                  <span>{user.company.name}</span>
+              {/* <footer> changed to <div> for easier styling */}
+              <div className="pt-6 border-t border-slate-100 space-y-3">
+                <div className="flex items-center group/item">
+                  <span className="text-lg mr-3 opacity-70 group-hover/item:scale-125 transition-transform">🏢</span>
+                  <span className="text-sm font-semibold text-slate-600">{user.company.name}</span>
                 </div>
-                <div>
-                  <span>📍</span>
-                  <span>{user.address.city}</span>
+                <div className="flex items-center group/item">
+                  <span className="text-lg mr-3 opacity-70 group-hover/item:scale-125 transition-transform">📍</span>
+                  <span className="text-sm font-semibold text-slate-600">{user.address.city}</span>
                 </div>
-              </footer>
+              </div>
 
-            </article>
+            </div>
           ))}
         </section>
       </div>
