@@ -184,6 +184,16 @@ function App() {
             </div>
           ))}
         </section>
+
+
+        {/* If the searched name is empty or not found, show this message. */}
+        {filtered.length === 0 && (
+          <div className="text-center py-32">
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-xl font-bold text-slate-800">No results found</h3>
+            <p className="text-slate-500">Try searching for a different user.</p>
+          </div>
+        )}
       </div>
     </main>
   )
