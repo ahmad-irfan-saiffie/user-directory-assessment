@@ -27,21 +27,17 @@ function App() {
   return (
     /* 
        <main>: For browsers and screen readers that this is the 
-       primary content for the page.
-    */
+       primary content for the page.  */
     <main> 
 
-      {/* 
-          <header>: for the header of the page
-      */}
+      {/*  <header>: for the header of the page */}
       <header>
         <h1>Team Directory</h1>
         <p>A user-friendly interface for managing user directory</p>
       </header>
       
-      {/* 
-          Section for the search bar
-      */}
+
+      {/* Section for the search bar */}
       <section>
         <input 
           type="text" //textbox for user to type in
@@ -52,6 +48,39 @@ function App() {
         />
       </section>
 
+
+      {/* List container: List to present all user in respective card container  */}
+      <section>
+        {/* Take every user in the filtered list and present them. */}
+        {filtered.map(user => (
+          
+          /* <article>: to present piece of content in self-contained container (like profile card) */
+          <article key={user.id}> 
+            {/* filtering the user id */}
+
+            {/* Represents the User Avatar
+                also easier to find for the first letter of the name */}
+            <div>{user.name.charAt(0)}</div>
+
+            {/* The main identity information for the person. */}
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            
+            {/* <footer>: extra info provided including the company name and city address  */}
+            <footer>
+              <div>
+                <span>🏢</span>
+                <span>{user.company.name}</span>
+              </div>
+              <div>
+                <span>📍</span>
+                <span>{user.address.city}</span>
+              </div>
+            </footer>
+
+          </article>
+        ))}
+      </section>
     </main>
   )
 }
