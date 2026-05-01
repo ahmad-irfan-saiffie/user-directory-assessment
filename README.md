@@ -1,16 +1,40 @@
-# React + Vite
+# UserDirectory 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, modern user management interface built with **React** and **Tailwind CSS v4**. This project showcases real-time data fetching, advanced search logic, and a premium "Liquid Wallpaper" animated UI.
 
-Currently, two official plugins are available:
+## 🌟 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+*   **Real-time Data Fetching**: Integrates with the JSONPlaceholder API to simulate a live production environment.
+*   **Intelligent Search**: A case-insensitive search filter that updates the UI instantly as the user types.
+*   **Liquid Animated UI**: Custom-built background "blobs" using CSS `@keyframes` and Tailwind `@utility` directives for a high-end feel.
+*   **Dynamic Theme Engine**: A smooth transition system between **Light Mode** and **Dark Mode** that adjusts all text, borders, and animations.
+*   **Responsive Grid**: A mobile-first design that adapts from a single column to a 3-column layout on larger screens.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*   **Framework**: [React.js](https://react.dev/) (Utilizing `useState` for memory and `useEffect` for API side-effects).
+*   **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (Using the latest `@import` engine).
+*   **Icons & Emojis**: System-native iconography for a lightweight, fast-loading experience.
+*   **Data Source**: JSONPlaceholder (REST API).
 
-## Expanding the ESLint configuration
+## 📖 My Learning Journey (Annotations)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+As a **Junior Software Developer**, I believe technical integrity is my biggest asset. During the development of this project, I kept detailed notes on the logic:
+
+*   **Component Pattern**: I refactored the code into **Sub-Components** (`UserCard`, `BackgroundBlobs`) to learn how to pass data via `props`.
+*   **The "Logic Click"**: I implemented a status indicator where users with `Even IDs` are marked "Active" and `Odd IDs` are "Offline" to practice conditional rendering.
+*   **CSS Animations**: I mastered the link between React and Tailwind v4 by using `@utility` to register custom animations like `animate-drift`.
+
+## 🚀 Getting Started
+
+To run this project locally, follow these steps:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ahmad-irfan-saiffie/user-directory-assessment.git
+2. **Install Dependencies**
+   ```bash
+   npm install
+3. **Run the App**
+   ```bash
+   npm run dev
